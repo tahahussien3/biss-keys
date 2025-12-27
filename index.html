@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BISS Keys Entry Guide for HD Receivers (Updated 2025)</title>
+    <meta name="description" content="Complete guide for entering BISS keys on popular HD satellite receivers">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6c757d;
+            --border-color: #dee2e6;
+            --accent-color: #2563eb;
+            --accent-hover: #1d4ed8;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #1f1f1f;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a1a1a1;
+            --border-color: #2a2a2a;
+            --accent-color: #3b82f6;
+            --accent-hover: #60a5fa;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+            color: white;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-wrapper {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 12px 45px 12px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+
+        .theme-toggle {
+            padding: 12px 24px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .results-count {
+            padding: 10px 20px;
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .receivers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .receiver-card {
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+        }
+
+        .receiver-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-color);
+        }
+
+        .receiver-header {
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-secondary);
+            transition: background-color 0.3s;
+        }
+
+        .receiver-header:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .receiver-header:hover .receiver-name {
+            color: white;
+        }
+
+        .receiver-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+
+        .expand-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+            color: var(--accent-color);
+        }
+
+        .receiver-header:hover .expand-icon {
+            color: white;
+        }
+
+        .receiver-card.active .expand-icon {
+            transform: rotate(45deg);
+        }
+
+        .receiver-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s;
+            padding: 0 24px;
+        }
+
+        .receiver-card.active .receiver-content {
+            max-height: 5000px;
+            padding: 24px;
+            transition: max-height 0.6s ease-in, padding 0.3s;
+        }
+
+        .receiver-steps {
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .receiver-steps p {
+            margin-bottom: 12px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .no-results-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+            border-top: 2px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        footer p {
+            margin: 8px 0;
+        }
+
+        .highlight {
+            background-color: rgba(37, 99, 235, 0.2);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .search-wrapper {
+                width: 100%;
+            }
+
+            .theme-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .receiver-name {
+                font-size: 1rem;
+            }
+
+            header {
+                padding: 30px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .receiver-header {
+                padding: 15px;
+            }
+
+            .receiver-card.active .receiver-content {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>BISS Keys Entry Guide for HD Receivers (Updated 2025)</h1>
+            <p class="subtitle">Complete list of methods for entering BISS keys on popular satellite receivers</p>
+        </header>
+
+        <div class="controls">
+            <div class="search-wrapper">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="ابحث عن جهاز الاستقبال (Search receiver name...)"
+                    autocomplete="off"
+                >
+                <span class="search-icon">🔍</span>
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <span id="themeIcon">🌙</span>
+                <span id="themeText">الوضع الداكن</span>
+            </button>
+            <div class="results-count" id="resultsCount"></div>
+        </div>
+
+        <div class="receivers-list" id="receiversList"></div>
+
+        <div class="no-results hidden" id="noResults">
+            <div class="no-results-icon">🔍</div>
+            <h2>لم يتم العثور على نتائج</h2>
+            <p>حاول البحث بكلمات مختلفة</p>
+        </div>
+
+        <footer>
+            <p><strong>Last updated: December 2025</strong></p>
+            <p>This guide is for educational purposes only.</p>
+            <p>⚠️ تأكد من إبعاد جهاز الراوتر وأي جهاز إلكتروني بعيداً عن الريسيفر لتجنب عدم الانتظام في إشارة القناة</p>
+        </footer>
+    </div>
+
+    <script>
+        const receivers = [
+            {
+                name: "كامكس 999 (Camax 999)",
+                steps: `في الريموت زر ازرق مكتوب عليه biss نضغط عليه ستظهر قائمه الشفرات الخاصه ب biss
+اغلب الصن بلص دوس 8899 لوكتب تفعيل emu دوس الزرار اللي تحت اللون الاصفر مباشرة من الريموت ودخل الشفرة او منيو+8888`
+            },
+            {
+                name: "أوبن سات 333 (Open Sat 333)",
+                steps: `- Menu
+- Setting
+- Plugin MANAGE
+- Type: Patch , Status: On
+- وانتا واقف عالقناه المشفره دوس 8282 حيظهر صفحة البيس دوس اضافه او تعديل الشفرة
+- إضغط 8899 لتفعيل الباتش`
+            },
+            {
+                name: "سونيك 999 وبناسات صن بلص (Sonic 999 & Panasat Sun Plus)",
+                steps: `- منيو
+- اعدادات
+- بيس ثم ادخل الشفرة`
+            },
+            {
+                name: "ستار سات 2000 هايبر (StarSat 2000 Hyper)",
+                steps: `الخطوات كالتالي:
+1- اقف على القناة المراد فتحها
+2- دوس على F1 بعد كده 333 هتظهرلك خانة الشفرة
+وقبل كل ده دوس F1+000 لتفعيل الباتش
+
+• تنطبق هذه الطريقة على:
+- دالي ستار جولد 1111 بلص
+- H4 العادي
+- تايجر T800
+- ستارسات 8800
+- هيرشمان 8800
+- كل أجهزة المعالج ali3511+ali3510+ali3606+3601`
+            },
+            {
+                name: "دريك وهيد (Drake & Head)",
+                steps: `في منها تضغط منيو ثم 8888 او 6666 وتختار البيس وتدخل الشفرة
+وفي منها تحدث الجهاز من موقع الشركه drakeplus.com باخر سوفت وتدخل منيو – الاعدادات - ضبط خيارات التشفير
+ثم EMU تفعيل وتدخل الشفرة`
+            },
+            {
+                name: "ترومان 9090 (Truman 9090)",
+                steps: `1 - اضغط على زر ( i ) مرتان بسرعه وانتا واقف عالقناه المراد فتح شفرتها هتظهرلك قائمة المعلومات
+2 - ثم اضغط على الزر ( الاحمر ) فى الريموت هتظهرلك قائمة معلومات القناة مثل التردد واسم القناة واسم القمر ...الخ
+3 - اضغط على الزر ( الاحمر ) فى الريموت تانى هتظهرلك قائمة جديدة هى قائمة تعديل الاكواد
+هتقوم بالضغط على زرار الزيادة في الصوت حتى توصل الشرطه الصغيرة عند اول صفر في قائمة key data
+بعدها اضف شفرة البيس`
+            },
+            {
+                name: "فوكس سات (Fox Sat)",
+                steps: `دوس وانتا واقف علي اي قناه 8899
+ثم نقوم بالدخول الى قائمة الاعدادات بالضغط على زرار منيو ثم patch menu تقوم بالضغط علية وتقوم بالتعديل على الشفرة`
+            },
+            {
+                name: "كيوماكس HD (Qmax HD)",
+                steps: `طريقة ادخال الشفرة لرسيفرات الكيوماكس 999HD
+الطريقه تتماشي مع الأنواع التاليه:
+H1 G3 / H4 PLUS / H3 PLUS / H5 & H6 / H2 MINI 4+ الجوكر القديم 1 و 2
+H2 MINI / V2 / V2.2 / VHD2 / V3
+
+ويتماشي ايضا مع H4 العادى بس لازم تضغط F1 +333 او PAGE+ عشان تظهر قايمة الشفرات
+
+اضغط الزر +PAGE وانت واقف ع القناه المشفره
+هتظهر مربع الشفرة دخل الشفرة من زرار تعديل باللون الموجود في الرسيفر`
+            },
+            {
+                name: "البرفكس والكامكس - معالج نوفاتك (Perfex & Camax - Novatek)",
+                steps: `دوس وانتا واقف علي قناه مشفره 8612
+
+تنطبق على: جميع اجهزة معالج نوفاتك العقيم`
+            },
+            {
+                name: "كيوماكس H2 كلاسيك (Qmax H2 Classic)",
+                steps: `دوس منيو ثم قايمة الوسائط ثم اوك ثم ادخل الرقم 1506 حيظهر كلمة باتش خش ضيف الشفرة اللي انتا عاوزها
+
+مع العلم هذه الطريقه تنفع مع اغلب اجهزة المعالج صن بلض المشابه لقوايم هذا الجهاز زي باور ستار مثلا`
+            },
+            {
+                name: "رويال 100 و 200 (Royal 100 & 200)",
+                steps: `دوس 8899 وانتا واقف علي اي قناه
+وبعدين وانتا واقف عالقناه المراد فتح شفرتها دوس عالزرار اللي تحت الاصفر >> مباشرة من الريموت
+حيظهر مربع الشفرة دخلها ثم اوك
+
+مع العلم الطريقه تتماشي مع:
+- رسيفر اي ماكس 808
+- ام تك 808
+او 8899 ثم من الاعدادات حتلاقي قايمة البيس ظهرت دخل الشفرة`
+            },
+            {
+                name: "معالج GX6605 (GX6605 Processor)",
+                steps: `منها ماتضغط علي الزرار الازرق وتدخل الشفرة مباشرة
+ومنها ماتضغط علي الزرار الاخضر
+ومنها ماتضغط علي الزرار F1 لو موجود بالريموت
+
+تنطبق على:
+- ستار سات 6969
+- سكاي لاين 555
+- برفكس 7300+7400H+7500
+- واغلب اجهزة هذا المعالج
+
+• طريقة اخرى: منيو +6666 هتظهر كلمه باتش انزل على كلمه key ودخل الشفرة`
+            },
+            {
+                name: "إليكترونيك هاوس (Electronic House Series)",
+                steps: `طريقة ادخال شفرتها كالتالي:
+1– اضغط 9878 لتفعيل ادخال الشفرات
+2– اضغط منيو ثم (Key Edit)
+3- اختار نظام ال ( Biss )
+4- اضغط الزر الاخضر لاضافة الشفرة
+
+تنطبق على:
+- جهاز Grohy 1000v2 mini
+- جهاز Helyo Tech 1000 mini
+- جهاز روني 1000 مينى
+- جهاز Astra 9000 slim mini`
+            },
+            {
+                name: "ستار جولد SG 750 (Star Gold SG 750)",
+                steps: `الوقوف على القناة المشفرة والضغط على الزر الاخضر فى الريموت
+ستظهر لك نافذة الشفرة على القناة من غير الخروج
+ضع الشفرة فى المستطيل من غير مفاتيح او تردد او اضافات واضغط OK`
+            },
+            {
+                name: "ديسكفري 555 اوميجا (Discovery 555 Omega)",
+                steps: `الطريقة اضغط menu +8888
+هيظهرلك صفحة الشفرات اخرج منها
+وبعدين اضغط على زر go to من الريموت ودخل الشفرة`
+            },
+            {
+                name: "ترومان X3 Mini HD / X2 / X5 (Truman X Series)",
+                steps: `منيو 8686 هتظهر كلمة باتش ثم صفحة شفرات البيس ودخل الشفرة`
+            },
+            {
+                name: "رويال 9000 بلص (Royal 9000 Plus)",
+                steps: `دوس منيو+8888 او اضغط علي زرار انفو مرتين هتبان الاشاره
+اضغط علي الزرار الاخضر هتظهر لوحه مفاتيح اكتب الشفرة`
+            },
+            {
+                name: "تك سات X999 (TecSat X999)",
+                steps: `منيو - ضبط ثم اخر سطر ثم Xcam ok ثم بقعه ثم Ok
+
+والطريقه تنفع لتايجر 999 AG`
+            },
+            {
+                name: "ترومان TM H1 Plus (Truman TM H1 Plus)",
+                steps: `وانت واقف على القناة المشفرة
+اضغط على الزرار اللى تحت الأصفر >>
+هتظهرلك قايمة الشفرة اكتب الشفرة واضغط ok`
+            },
+            {
+                name: "توب بوكس (Top Box)",
+                steps: `طريقة ادخال شفرة البيس:
+- اضغط MENU ثم 9999
+- حتدخل تردد القناة
+- حتدخل الكايد للقناة وده تجيبه منين: اول حاجة حتقف على القناة وتضغط زر OK من الريموت حتظهرلك قائمة القنوات
+- بعدين اضغط زر INFO من الريموت حتظهرلك قايمة Information فيها معلومات القناة واللى منها الService اللى ظاهر قدامك على القناة
+- حتدخل الService للقناة وبعدين تدخل شفرة القناة
+- بعدين تختار القناة من Select service وتضغط OK وتعمل خروج حتلاقى القناة اشتغلت تمام`
+            },
+            {
+                name: "سوبرماكس (Supermax)",
+                steps: `اضغط علي كلمة menu من الريموت
+ثم اذهب الي قائمة ضبط
+ثم اختار منها اخر اختيار: اعداد xcam
+ثالثا: نختار اول اختيار: بقعة ثم دخل الشفرة`
+            },
+            {
+                name: "ترومان TM 222 HD (Truman TM 222 HD)",
+                steps: `نقوم بالضغط على الزر الازرق وكتابه الشفرة والضغط على الازرق مرة اخرى للحفظ`
+            },
+            {
+                name: "سمارت سات (Smart Sat)",
+                steps: `اضغط منيو ثم 8888
+
+معالج النوفاتك اغلبه بدوس منيو+8612 او 8612 وانتا واقف علي قناه مشفره
+والصن بلص اغلبه دوس منيو+8888 او منيو قايمة الوسائط 1506`
+            },
+            {
+                name: "هيرشمان 1100 (Hershman 1100)",
+                steps: `نضغط Menu
+ثم نختار Others
+BISS/ Cam setting
+Biss key list`
+            },
+            {
+                name: "أفاتار 1000 (Avatar 1000)",
+                steps: `اضغط 5566 وانت واقف علي القناه
+هتظهر قايمة الشفرة بعد كده اكتب الشفرة واضغط ok`
+            },
+            {
+                name: "ترومان بريمير 1 بلص (Truman Premier 1 Plus)",
+                steps: `MENU >> 9999 >>> تكتب الشفرة >> EXIT`
+            },
+            {
+                name: "أسترا 10300 ميني HD جولد (Astra 10300 Mini HD Gold)",
+                steps: `Page up + 33`
+            },
+            {
+                name: "دولفين ميني HD (Dolphin Mini HD)",
+                steps: `منيو+8888`
+            },
+            {
+                name: "نيو ماكس 744 (New Max 744)",
+                steps: `اضغط على منيو ثم 8888
+فتظهر الصفحه بها قائمه الشفرات اخترت منها قائمه شفرات biss`
+            },
+            {
+                name: "ستار نت HD (Star Net HD)",
+                steps: `منيو ثم Setting ثم xcam setup ثم patch`
+            },
+            {
+                name: "تارجت T 907 (Target T 907)",
+                steps: `منيو ثم Setting ثم xcam setup ثم patch`
+            },
+            {
+                name: "ستار سات 6969 HD (StarSat 6969 HD)",
+                steps: `قف على قناة مشفره وضغط info+1`
+            },
+            {
+                name: "جاكوار AG 9000 HD (JAGUAR AG 9000 HD)",
+                steps: `ضغط على منيو ثم 8888`
+            },
+            {
+                name: "IG 720 & 730 & 740",
+                steps: `اولآ يجب وضع الشفرة بالأحروف الصغيره
+الوقوف على القناه المراد فتحها اضغط انفو اربع مرات تظهر لك قيمة وضع الشفره
+ولو مظهرتش اضغط منيو 6666`
+            },
+            {
+                name: "ترومان 270 أوبشن HD (Truman 270 Option HD)",
+                steps: `تقف على القناه المشفرة
+ونضغط من الريموت 8282
+هيظهر قايمة الشفرات
+ندخل التردد والشفرة ثم OK`
+            },
+            {
+                name: "Sky Xpress 2 HD",
+                steps: `نضغط menu
+نذهب الى الخيار الثانى نظام التليفزيون ونضغط ok
+نضغط اربع اصفار 0000 ستلاحظ ظهور علامه حمراء اسفل الشاشه
+نضغط على الزر الاحمر من الريموت بعدها فتظهر الصفحه بها قائمه الشفرات اخترت منها قائمه شفرات biss`
+            },
+            {
+                name: "Head V2 هيد",
+                steps: `ضغط على منيو ثم 8888
+فتظهر الصفحه بها قائمه الشفرات اخترت منها قائمه شفرات biss`
+            },
+            {
+                name: "الشيكي بوكس HD (Cheeky Box HD)",
+                steps: `تقف علي القناه المراد ادخال الشفره لها
+وتضغط من الريموت الزرار الازرق`
+            },
+            {
+                name: "Star Live Plus 1 SKS V2",
+                steps: `زرار مكتوب عليها biss`
+            },
+            {
+                name: "HELYOSTAR HS-380 HD",
+                steps: `اكتب 8899
+ثم هتقف على القناه وتضغط الزرار اللى تحت الزرار الاصفر`
+            },
+            {
+                name: "Star Trek 1818 HD",
+                steps: `قف على قناة وضغط صفر (0)`
+            },
+            {
+                name: "Star Track Dream World HD",
+                steps: `قف على قناة وضغط الاخضر`
+            },
+            {
+                name: "Star Track 7700 HD",
+                steps: `منيو ثم 88888`
+            },
+            {
+                name: "Hershman 1000 HD",
+                steps: `اقف على قناة F1 333`
+            },
+            {
+                name: "StarSat SR-9797 HD",
+                steps: `ضغط علي F1 111 ثم اختار خاصية twin protocol
+ثم اضغط منيو ثم installation ثم PATCH MENU
+فتظهر الصفحه بها قائمه الشفرات اخترت منها قائمه شفرات biss`
+            },
+            {
+                name: "StarSat SR-9999 HD",
+                steps: `اضغط منيو ثم installation ثم PATCH MENU
+فتظهر الصفحه بها قائمه الشفرات اخترت منها قائمه شفرات biss`
+            },
+            {
+                name: "Tiger TG-100 Plus HD",
+                steps: `اضغط منيو ثم CHANNEL ثم اقف علي CHANNEL SETUP
+ثم اكتب 88888 ثم اقف علي القناة وضغط GOTO`
+            },
+            {
+                name: "Tiger 7110 Plus HD",
+                steps: `اقف علي القناة وضغط INFO ثم 1234`
+            },
+            {
+                name: "Star Track ST-2016 HD",
+                steps: `اضغط من الريموت كلمة BISS
+لو مظهرش حاجه اقف علي القناة وضغط 9878
+اضغط علي BISS مرة اخري`
+            },
+            {
+                name: "StarTrek SR-9990",
+                steps: `اضغط منيو ثم MULTI MEDIA اكتب (1506) سوف تظهر كلمة PATCH
+فتظهر الصفحه بها قائمه الشفرات اخترت منها قائمه شفرات biss`
+            },
+            {
+                name: "Sky Line HD-222",
+                steps: `اضغط منيو ثم MULTI MEDIA اكتب (1506) سوف تظهر كلمة PATCH
+فتظهر الصفحه بها قائمه الشفرات اخترت منها قائمه شفرات biss`
+            },
+            {
+                name: "Supermax 4300 CA HD Mini",
+                steps: `اضغط علي SLOW ثم 1111
+اضغط منيو ثم installation ثم PATCH MENU
+فتظهر الصفحه بها قائمه الشفرات اخترت منها قائمه شفرات biss`
+            },
+            {
+                name: "Supermax SM 3000 HD",
+                steps: `اقف علي القناة وضغط الزرار الاحمر`
+            },
+            {
+                name: "Gold Star GS-1111 HD",
+                steps: `اضغط منيو ثم 88888
+فتظهر الصفحه بها قائمه الشفرات اخترت منها قائمه شفرات biss`
+            },
+            {
+                name: "فورتك 999 اتش دي (Fortech 999 HD)",
+                steps: `ضغط على منيو ثم 8888`
+            },
+            {
+                name: "بانسات 9090 (PanaSat 9090)",
+                steps: `ضغط على منيو ثم 8888
+فتظهر الصفحه بها قائمه الشفرات اخترت منها قائمه شفرات biss`
+            }
+        ];
+
+        // Initialize
+        let filteredReceivers = [...receivers];
+
+        function createReceiverCard(receiver, index) {
+            return `
+                <div class="receiver-card" data-index="${index}">
+                    <div class="receiver-header" onclick="toggleReceiver(${index})">
+                        <h3 class="receiver-name">${receiver.name}</h3>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="receiver-content">
+                        <div class="receiver-steps">${receiver.steps}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderReceivers() {
+            const list = document.getElementById('receiversList');
+            const noResults = document.getElementById('noResults');
+            const resultsCount = document.getElementById('resultsCount');
+
+            if (filteredReceivers.length === 0) {
+                list.innerHTML = '';
+                noResults.classList.remove('hidden');
+                resultsCount.textContent = 'لا توجد نتائج';
+            } else {
+                noResults.classList.add('hidden');
+                list.innerHTML = filteredReceivers.map((receiver, index) => 
+                    createReceiverCard(receiver, index)
+                ).join('');
+                
+                const count = filteredReceivers.length;
+                resultsCount.textContent = `${count} جهاز`;
+            }
+        }
+
+        function toggleReceiver(index) {
+            const card = document.querySelector(`[data-index="${index}"]`);
+            card.classList.toggle('active');
+        }
+
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function filterReceivers(searchTerm) {
+            const term = searchTerm.toLowerCase().trim();
+            
+            if (!term) {
+                filteredReceivers = [...receivers];
+            } else {
+                filteredReceivers = receivers.filter(receiver => 
+                    receiver.name.toLowerCase().includes(term) ||
+                    receiver.steps.toLowerCase().includes(term)
+                );
+            }
+            
+            renderReceivers();
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        let searchTimeout;
+        
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                filterReceivers(e.target.value);
+            }, 300);
+        });
+
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const html = document.documentElement;
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeButton(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeButton(newTheme);
+        });
+
+        function updateThemeButton(theme) {
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'الوضع الفاتح';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'الوضع الداكن';
+            }
+        }
+
+        // Initial render
+        renderReceivers();
+
+        // Smooth scroll for better UX
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.receiver-header')) {
+                setTimeout(() => {
+                    const card = e.target.closest('.receiver-card');
+                    if (card.classList.contains('active')) {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>
